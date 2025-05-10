@@ -1,0 +1,12 @@
+apache-airflow==2.7.1
+apache-airflow-providers-apache-kafka==1.0.0
+apache-airflow-providers-celery==3.1.0
+apache-airflow-providers-http==4.1.0
+apache-airflow-providers-ssh==3.3.0
+apache-airflow-providers-postgres==5.3.0
+kafka-python==2.0.2
+psycopg2-binary==2.9.6
+setuptools>=65.5.1
+wheel>=0.38.4
+s3fs
+pandas
