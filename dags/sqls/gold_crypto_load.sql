@@ -47,6 +47,7 @@ BEGIN
     AND volume_24h IS NOT NULL
     AND updated_at IS NOT NULL;
 
+    COMMIT;
     RETURN 'Gold Layer Insert completed successfully.';
 END;
 $$;

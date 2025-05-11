@@ -14,7 +14,6 @@ CREATE OR REPLACE TABLE CRYPTO_DB.SILVER.crypto_gecko_data (
     updated_at STRING
 );
 
-
 -- Data Manipulation Language
 
 CREATE OR REPLACE PROCEDURE CRYPTO_DB.SILVER.sl_load_crypto_gecko()
@@ -41,8 +40,9 @@ BEGIN
         ROUND(volume_24h, 2) AS volume_24h,
         TO_CHAR(coin_updated_at, 'YYYY-MM-DD HH24:MI:SS') AS updated_at
     FROM CRYPTO_DB.BRONZE.CRYPTO_GECKO_DATA;
-
-    RETURN 'Silver LayerInsert completed successfully.';
+    
+    COMMIT;
+    RETURN 'Silver Layer Insert completed successfully.';
 END;
 $$;
 

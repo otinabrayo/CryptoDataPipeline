@@ -68,7 +68,7 @@ def stream_data():
     batch_interval_seconds = 5
 
     try:
-        while time.time() <= start_time + 120:  # Run for 10 seconds
+        while time.time() <= start_time + 40:  # Run for 10 seconds
             try:
                 response_data = extract_data()
                 processed_data = transform_data(response_data)
@@ -93,16 +93,16 @@ default_args = {
 }
 
 dag = DAG(
-    dag_id='coin_fetch',
+    dag_id='crypto_fetch',
     default_args=default_args,
     description='Fetch coin data from Coingecko and stream to Kafka',
     schedule_interval='@daily',
     catchup=False
 )
 
-trigger_data_consume = TriggerDagRunOperator(
+trigger_coin_consume = TriggerDagRunOperator(
     task_id='trigger_data_consume',
-    trigger_dag_id='data_consume',
+    trigger_dag_id='crypto_consume',
     wait_for_completion=False,
     dag=dag
 )
@@ -113,4 +113,4 @@ upstreaming_data = PythonOperator(
     dag=dag
 )
 
-upstreaming_data  >> trigger_data_consume
+upstreaming_data  >> trigger_coin_consume

@@ -10,3 +10,4 @@ setuptools>=65.5.1
 wheel>=0.38.4
 s3fs
 pandas
+boto3

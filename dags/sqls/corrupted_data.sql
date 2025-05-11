@@ -44,6 +44,7 @@ BEGIN
         AND volume_24h IS NULL
         AND updated_at IS NULL;
 
+    COMMIT;
     RETURN 'Corrupted Data Layer Insert completed successfully.';
 END;
 $$;

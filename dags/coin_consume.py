@@ -47,15 +47,15 @@ default_args = {
 }
 
 dag = DAG(
-    'data_consume',
+    'crypto_consume',
     default_args=default_args,
     description='Consume coin data from Kafka and save to S3',
     schedule_interval='@daily',
     catchup=False
 )
 
-trigger_table_making = TriggerDagRunOperator(
-    task_id='trigger_table_making',
+trigger_snowflake_table = TriggerDagRunOperator(
+    task_id='trigger_snowflake_table',
     trigger_dag_id='crypto_table_making',
     wait_for_completion=False,
     dag=dag
@@ -67,4 +67,4 @@ consume_data_to_s3 = PythonOperator(
     dag=dag
 )
 
-consume_data_to_s3 >> trigger_table_making
+consume_data_to_s3 >> trigger_snowflake_table

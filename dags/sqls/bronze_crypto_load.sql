@@ -49,7 +49,7 @@ BEGIN
         raw:coin_updated_at::TIMESTAMP_TZ AS coin_updated_at
     FROM CRYPTO_DB.BRONZE.br_coin_gecko_stage_json;
 
-    RETURN 'Bronze LayerInsert completed successfully.';
+    RETURN 'Bronze Layer Insert completed successfully.';
 END;
 $$;
 
