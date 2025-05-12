@@ -4,6 +4,7 @@ from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from datetime import datetime
 
+
 default_args = {
     'owner': 'Brian',
     'start_date': datetime(2025, 4, 2, 12, 0)

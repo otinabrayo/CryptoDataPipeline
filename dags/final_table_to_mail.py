@@ -4,7 +4,11 @@ from airflow.operators.python import PythonOperator
 from airflow.operators.email_operator import EmailOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from datetime import datetime
-import boto3, os, gzip
+import boto3
+import os
+import gzip
+
+
 default_args = {
     'owner': 'Brian',
     'start_date': datetime(2025, 4, 2),

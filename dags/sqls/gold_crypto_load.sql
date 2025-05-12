@@ -38,14 +38,7 @@ BEGIN
         top_3_coins_id,
         volume_24h,
         updated_at
-    FROM CRYPTO_DB.SILVER.crypto_gecko_data
-    WHERE market_cap IS NOT NULL
-    AND market_cap_change_24h IS NOT NULL
-    AND top_3_coins != []
-    AND top_3_coins_id != []
-    AND content != 'unknown'
-    AND volume_24h IS NOT NULL
-    AND updated_at IS NOT NULL;
+    FROM CRYPTO_DB.SILVER.crypto_gecko_data;
 
     COMMIT;
     RETURN 'Gold Layer Insert completed successfully.';

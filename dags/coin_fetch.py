@@ -68,7 +68,7 @@ def stream_data():
     batch_interval_seconds = 5
 
     try:
-        while time.time() <= start_time + 40:  # Run for 10 seconds
+        while time.time() <= start_time + 120:  # Run for 2 minutes
             try:
                 response_data = extract_data()
                 processed_data = transform_data(response_data)
