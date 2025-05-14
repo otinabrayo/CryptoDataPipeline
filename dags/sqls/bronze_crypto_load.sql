@@ -6,7 +6,12 @@ CREATE OR REPLACE FILE FORMAT CRYPTO_DB.BRONZE.my_json_format TYPE = 'JSON';
 -- Create staging table
 CREATE OR REPLACE TABLE CRYPTO_DB.BRONZE.br_coin_gecko_stage_json (raw VARIANT);
 
--- Create final target table
+-- Load data into stage table
+COPY INTO CRYPTO_DB.BRONZE.br_coin_gecko_stage_json
+FROM @MY_S3_CRYPTO_STAGE/coin_gecko/dumps/
+FILE_FORMAT = (FORMAT_NAME = CRYPTO_DB.BRONZE.my_json_format);
+
+-- Create target table
 CREATE OR REPLACE TABLE CRYPTO_DB.BRONZE.crypto_gecko_data (
     key_id STRING,
     id STRING,
@@ -19,12 +24,6 @@ CREATE OR REPLACE TABLE CRYPTO_DB.BRONZE.crypto_gecko_data (
     volume_24h FLOAT,
     coin_updated_at TIMESTAMP_TZ
 );
-
--- Load data into stage table
-COPY INTO CRYPTO_DB.BRONZE.br_coin_gecko_stage_json
-FROM @MY_S3_CRYPTO_STAGE/coin_gecko/dumps/
-FILE_FORMAT = (FORMAT_NAME = CRYPTO_DB.BRONZE.my_json_format);
-
 
 -- Data Manipulation Language
 

@@ -11,12 +11,17 @@ default_args = {
 }
 
 def send_success_email(context):
-    subject = 'Crypto gecko data loaded to snowflake ✅'
-    html_content = 'Crypto gecko data successfully fetched from Kafka and loaded to Snowflake for cleanup.'
+    subject = 'Crypto gecko data to snowflake ✅'
+    html_content = '''
+        h2>Final Gold Report✅</h2>
+        <p>Crypto gecko data successfully fetched from Kafka, loaded and transformed for analysis in Snowflake.</p>
+        <p>Check the attached file below and Snowflake for the latest data.</p>
+        <p>Best regards</p>
+    '''
     send_email(to='marionkoki00@gmail.com', subject=subject, html_content=html_content)
 
 def send_failure_email(context):
-    subject = 'Crypto gecko data ⚠ failed to load to snowflake ❄'
+    subject = 'Crypto gecko data Error ❌ to snowflake ❄'
     html_content = 'Crypto gecko data failed to be fetched from Kafka or loaded into Snowflake.'
     send_email(to='marionkoki00@gmail.com', subject=subject, html_content=html_content)
 
@@ -26,14 +31,14 @@ dag = DAG(
     default_args=default_args,
     catchup=False,
     schedule='@daily',
+    on_success_callback=send_success_email,
+    on_failure_callback=send_failure_email,
 )
 
 load_bronze_table = SnowflakeOperator(
     task_id='crypto_bronze_table_making',
     sql='./sqls/bronze_crypto_load.sql',
     snowflake_conn_id='snowflake_conn_id',
-    on_success_callback=send_success_email,
-    on_failure_callback=send_failure_email,
     dag=dag
 )
 
